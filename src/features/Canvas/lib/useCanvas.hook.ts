@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { HexColor } from "../../../shared/lib/types";
 
 export type Point = { x: number; y: number };
 
@@ -9,6 +10,8 @@ interface Props {
 }
 
 export const useCanvas = ({ width, height, pixel_size = 1 }: Props) => {
+    const colorRef = useRef<HexColor>("#da1");
+
     const containerRef = useRef<HTMLDivElement | null>(null);
     const canvasRef = useRef<HTMLCanvasElement>(null);
     const ctxRef = useRef<CanvasRenderingContext2D | null>(null);
@@ -139,7 +142,7 @@ export const useCanvas = ({ width, height, pixel_size = 1 }: Props) => {
 
         if (event.button === 0) {
             const { x, y } = screenToCanvasCoords(event);
-            writeToBuffer({ x: Math.floor(x / CELL_SIZE), y: Math.floor(y / CELL_SIZE) }, "#000");
+            writeToBuffer({ x: Math.floor(x / CELL_SIZE), y: Math.floor(y / CELL_SIZE) }, colorRef.current);
         }
 
         if (canGrab) {
@@ -169,7 +172,7 @@ export const useCanvas = ({ width, height, pixel_size = 1 }: Props) => {
 
                 writeToBuffer(
                     { x: Math.floor(canvasCoords.x / CELL_SIZE), y: Math.floor(canvasCoords.y / CELL_SIZE) },
-                    "#000"
+                    colorRef.current
                 );
             }
 
@@ -375,6 +378,8 @@ export const useCanvas = ({ width, height, pixel_size = 1 }: Props) => {
     };
 
     return {
+        colorRef,
+
         containerRef,
         canvasRef,
 

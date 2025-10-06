@@ -1,7 +1,9 @@
 import React, { MouseEventHandler, useEffect, useRef, useState, WheelEventHandler } from 'react'
 import styles from "./Canvas.module.scss";
-import { clsx } from '../../shared/lib/utils';
+import { clsx, isHexColor } from '../../shared/lib/utils';
 import { useCanvas } from './lib/useCanvas.hook';
+import { HexColor } from '../../shared/lib/types';
+import ToolBar from './ui/ToolBar/ToolBar';
 
 
 interface Props {
@@ -30,6 +32,12 @@ export default function Canvas({ width, height, pixel_size }: Props) {
 
     return (
         <React.Fragment>
+            <ToolBar/>
+            <input type="color" onChange={(e) => {
+                if( isHexColor(e.target.value as HexColor) ) {
+                    CanvasHelper.colorRef.current = e.target.value as HexColor;
+                }
+            }} />
             <center>
                 <div
                     ref={CanvasHelper.containerRef}
