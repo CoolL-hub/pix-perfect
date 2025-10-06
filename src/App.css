@@ -1,0 +1,16 @@
+:root {
+  --bg-color: #FEFAE0;
+  --text-color: #99582A;
+}
+
+* {
+  color: var(--text-color);
+  font-weight: bold;
+}
+
+body {
+  outline: 0;
+  padding: 0;
+  margin: 0;
+  background-color: var(--bg-color);
+}

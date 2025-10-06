@@ -1,0 +1,9 @@
+.canvas {
+    &.canGrab {
+        cursor: grab;
+
+        &.isDragging {
+            cursor: grabbing;
+        }
+    }
+}
